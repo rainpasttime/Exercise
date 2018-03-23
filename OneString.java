@@ -1,5 +1,5 @@
 import java.util.Scanner;
- 
+
 public class OneString{
     public static void main(String args[]){
         Scanner read = new Scanner(System.in);
@@ -12,19 +12,9 @@ public class OneString{
         int count = Integer.parseInt(countString);
         String inputString = read.nextLine();
         String numString[] = inputString.split("\\s");
-        for(i=0;i<count;i++){
-            temMax = numString[i];
-            indexMax = i;
-            for(j=i+1;j<count;j++){
-                if(OneString.judge(temMax,numString[j])){
-                    temMax = numString[j];
-                    indexMax = j;
-                }
-            }
-            if(indexMax!=i)
-                numString[indexMax] = numString[i];
-            result = result.concat(temMax);
-        }
+        quickSort(0,count-1,numString);
+        for(i=count-1;i>=0;i--)
+            result = result.concat(numString[i]);
         System.out.println(result);
         read.close();
     }
@@ -35,5 +25,41 @@ public class OneString{
             return false;
         else
             return true;
+    }
+    static void quickSort(int first,int end,String[] numString){
+        int pivot;
+        if(first<end){
+            pivot = partition(first,end,numString);
+            quickSort(first,pivot-1,numString);
+            quickSort(pivot+1,end,numString);
+        }
+    }
+    static int partition(int s,int t,String[] numString){
+        int i = s;
+        int j = t;
+        if(s==t){
+            return 0;
+        }
+        else{
+            while(i<j){
+                while(i<j&&judge(numString[i],numString[j]))
+                j--;
+                if(i<j){
+                    String tem = numString[i];
+                    numString[i] = numString[j];
+                    numString[j] = tem;
+                    i++;
+                }
+                while(i<j&&judge(numString[i],numString[j]))
+                    i++;
+                if(i<j){
+                    String tem = numString[i];
+                    numString[i] = numString[j];
+                    numString[j] = tem;
+                    j--;
+                }
+            }
+        }
+        return i;
     }
 }
