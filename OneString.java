@@ -1,5 +1,5 @@
 import java.util.Scanner;
-
+ 
 public class OneString{
     public static void main(String args[]){
         Scanner read = new Scanner(System.in);
@@ -29,26 +29,11 @@ public class OneString{
         read.close();
     }
     static boolean judge(String tem,String numString){
-        int i;
-        int j;
-        int max = tem.length()>numString.length()?tem.length():numString.length();
-        while(max!=0){
-            if(tem.charAt(i)>numString.charAt(j)){
-                return false;
-            }
-            else if(tem.charAt(i)<numString.charAt(j)){
-                return true;
-            }
-            else{
-                i++;
-                j++;
-                if(i==tem.length())
-                    i = 0;
-                if(j==numString.length())
-                    j = 0;
-                max--;
-            }
-        }
-        return false;
+        String resultOne = tem.concat(numString);
+        String resultTwo = numString.concat(tem);
+        if(Integer.parseInt(resultOne)>Integer.parseInt(resultTwo))
+            return false;
+        else
+            return true;
     }
 }
