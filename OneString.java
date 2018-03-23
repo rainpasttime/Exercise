@@ -29,40 +29,24 @@ public class OneString{
         read.close();
     }
     static boolean judge(String tem,String numString){
-        if((tem.length())<numString.length()){  //tem是12，numString是120,122,130,112这样的情况
-            int i = 0;
-            int j = 0;
-            int max = numString.length();
-            while(i<max){   
-                if(tem.charAt(j)<numString.charAt(i)){
-                    return true;
-                }
-                else if(tem.charAt(j)>numString.charAt(i)){  
-                    return false;
-                }
-                i++;
-                j++;
-                if(j==(tem.length())){
-                    j=0;
-                }
+        int i;
+        int j;
+        int max = tem.length()>numString.length()?tem.length():numString.length();
+        while(max!=0){
+            if(tem.charAt(i)>numString.charAt(j)){
+                return false;
             }
-        }
-        else{               //tem是120,122,130,112同时numString是12的情况。或者tem是129，numString是130,122,150,119的情况  
-            int i = 0;
-            int j = 0;
-            int max = (tem.length());
-            while(i<max){
-                if(tem.charAt(i)>numString.charAt(j)){
-                    return false;
-                }
-                else if(tem.charAt(i)<numString.charAt(j)){
-                    return true;
-                }
+            else if(tem.charAt(i)<numString.charAt(j)){
+                return true;
+            }
+            else{
                 i++;
                 j++;
-                if(j==numString.length()){
+                if(i==tem.length())
+                    i = 0;
+                if(j==numString.length())
                     j = 0;
-                }
+                max--;
             }
         }
         return false;
